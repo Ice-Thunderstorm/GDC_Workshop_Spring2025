@@ -59,7 +59,7 @@ func animation():
 	elif velocity.x > 0:
 		$AnimatedSprite2D.flip_h = false
 	
-	# Checks if playet is falling/Jumping
+	# Checks if player is falling/Jumping other wise walk
 	if abs(velocity.y) > 0:
 		if $AnimatedSprite2D.animation != "jump":
 			$AnimatedSprite2D.play("jump")
@@ -70,12 +70,13 @@ func animation():
 # This function triggers whtn the area 2d detects another area
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	# Here we check what area we have detected by lowercasing the name
-	if "cog" in area.get_parent().name.to_lower():
+	var area_name = area.get_parent().name.to_lower()
+	if "cog" in area_name:
 		points += 1
 		# Update score
 		$Label.text = str(points)
 		area.get_parent().delete()
-	elif "spike" in area.get_parent().name.to_lower():
+	elif "spike" in area_name:
 		# Reload the scene if we touch a spike
 		get_tree().reload_current_scene()
 	
