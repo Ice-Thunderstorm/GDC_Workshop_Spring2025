@@ -1,0 +1,126 @@
+[gd_scene load_steps=12 format=3 uid="uid://cxuox0khprve7"]
+
+[ext_resource type="Script" uid="uid://1mwqssfg7tax" path="res://level.gd" id="1_oi3di"]
+[ext_resource type="Texture2D" uid="uid://c70rr0ruvhyyl" path="res://World/Ground.png" id="1_vonw3"]
+[ext_resource type="Texture2D" uid="uid://bdjykttkmpq8n" path="res://World/simple_backdrop.png" id="2_f2txt"]
+[ext_resource type="PackedScene" uid="uid://c3ebds5qe3246" path="res://Entites/Player.tscn" id="2_oi3di"]
+[ext_resource type="Texture2D" uid="uid://8qjyc08r1cp3" path="res://World/pipes.png" id="3_0b4ue"]
+[ext_resource type="Texture2D" uid="uid://1oypmx6inwl5" path="res://World/bunchatrees.png" id="3_1ainy"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0b4ue"]
+texture = ExtResource("1_vonw3")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_f2txt"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/2 = SubResource("TileSetAtlasSource_0b4ue")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f2txt"]
+texture = ExtResource("3_0b4ue")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 16, -4, 16, 4, -4, 4)
+0:0/0/physics_layer_0/polygon_0/one_way = true
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -4, 4, -4, 4, 4, -16, 4)
+1:0/0/physics_layer_0/polygon_0/one_way = true
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -4, 16, -4, 16, 4, -16, 4)
+2:0/0/physics_layer_0/polygon_0/one_way = true
+0:1/0 = 0
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -4, 16, -4, 16, 4, -16, 4)
+1:1/0/physics_layer_0/polygon_0/one_way = true
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -4, 4, -4, 4, 4, -16, 4)
+2:1/0/physics_layer_0/polygon_0/one_way = true
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 16, -4, 16, 4, -4, 4)
+0:2/0/physics_layer_0/polygon_0/one_way = true
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -4, 4, -4, 4, 4, -16, 4)
+1:2/0/physics_layer_0/polygon_0/one_way = true
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 16, -4, 16, 4, -4, 4)
+2:2/0/physics_layer_0/polygon_0/one_way = true
+
+[sub_resource type="TileSet" id="TileSet_1ainy"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/12 = SubResource("TileSetAtlasSource_f2txt")
+
+[sub_resource type="LabelSettings" id="LabelSettings_km5ld"]
+font_size = 64
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_oi3di")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="BackGround" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(11, -4)
+motion_scale = Vector2(0, 0)
+metadata/_edit_lock_ = true
+
+[node name="SimpleBackdrop" type="Sprite2D" parent="ParallaxBackground/BackGround"]
+position = Vector2(565, 328)
+texture = ExtResource("2_f2txt")
+metadata/_edit_lock_ = true
+
+[node name="Trees" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(10, -704)
+motion_offset = Vector2(2, 0)
+motion_mirroring = Vector2(2304, 0)
+
+[node name="Bunchatrees" type="Sprite2D" parent="ParallaxBackground/Trees"]
+position = Vector2(612, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("3_1ainy")
+
+[node name="Ground" type="TileMapLayer" parent="."]
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_f2txt")
+metadata/_edit_lock_ = true
+
+[node name="Pipes" type="TileMapLayer" parent="."]
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_1ainy")
+metadata/_edit_lock_ = true
+
+[node name="CogsGroup" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="SpikeGroup" type="Node2D" parent="."]
+position = Vector2(4096, -387)
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("2_oi3di")]
+z_index = 2
+position = Vector2(86, -192)
+metadata/_edit_lock_ = true
+
+[node name="Label2" type="Label" parent="Player"]
+visible = false
+z_index = 3
+offset_left = -156.0
+offset_top = -170.0
+offset_right = 144.0
+offset_bottom = -82.0
+text = "YOU WIN!"
+label_settings = SubResource("LabelSettings_km5ld")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="child_exiting_tree" from="CogsGroup" to="." method="_on_cogs_child_exiting_tree"]
